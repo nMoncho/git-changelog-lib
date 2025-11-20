@@ -172,6 +172,11 @@ public class Helpers {
         (final Commit commit, final Options options) -> {
           return conditional(options, commitScope(commit, options));
         });
+    helpers.put(
+        "ifCommitTypeOtherThan",
+        (final Commit commit, final Options options) -> {
+          return conditional(options, !commitScope(commit, options));
+        });
 
     helpers.put(
         "ifCommitHasFooters",

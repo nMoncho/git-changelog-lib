@@ -46,7 +46,7 @@
 ### Other changes
 
 {{#commits}}
-{{#ifCommitType . type='^$'}}
+{{#ifCommitType . type='^($^|(?!fix|feat|breaking|chore).*)'}}
 **{{{messageTitle}}}**
 
 {{#messageBodyItems}}
@@ -55,6 +55,18 @@
 
 [{{subString hash 0 5}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
 
+{{/ifCommitType}}
+{{#ifCommitType . type="chore"}}
+{{#ifCommitTypeOtherThan . scope="deps"}}
+**{{{messageTitle}}}**
+
+{{#messageBodyItems}}
+* {{.}}
+{{/messageBodyItems}}
+
+[{{subString hash 0 5}}](https://github.com/{{ownerName}}/{{repoName}}/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+
+{{/ifCommitTypeOtherThan}}
 {{/ifCommitType}}
 {{/commits}}
 
